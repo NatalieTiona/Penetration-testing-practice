@@ -1,7 +1,8 @@
 # Penetration-testing-practice
 In this repository, you will find screenshots and reports of my practice with penetration's testing. 
 
-Instructions
+Instructions:
+
 You've been provided full access to the network and are getting ping responses from the CEO’s workstation.
 
 
