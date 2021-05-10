@@ -51,6 +51,11 @@ Run the command that performs a search for the secretfile.txt on the target.
 
 command: search -f secretfile*.txt
 
+Download drinks.recipe.txt
+
+![screenshot 3](https://user-images.githubusercontent.com/81331968/117707604-f8f04b00-b18b-11eb-8315-68e2fb3260ca.png)
+
+
 
 You should now have a Meterpreter session open.
 
