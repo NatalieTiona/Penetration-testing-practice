@@ -11,6 +11,8 @@ Perform a service and version scan using Nmap to determine which services are up
 
 Run the Nmap command that performs a service and version scan against the target.
 
+![screenshot 1](https://user-images.githubusercontent.com/81331968/117705753-ab72de80-b189-11eb-8daa-bc66c6d6e712.png)
+
 From the previous step, we see that the Icecast service is running. Let's start by attacking that service. Search for any Icecast exploits:
 
 
